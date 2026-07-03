@@ -18,7 +18,7 @@ spec:
     - to:
         - namespaceSelector:
             matchLabels:
-              kubernetes.io/metadata.name: shared-services
+              kubernetes.io/metadata.name: payments
       ports:
         - protocol: TCP
           port: 5432

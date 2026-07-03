@@ -31,12 +31,10 @@ oc delete pod -n "$PLATFORM_NS" prometheus-k8s-0 prometheus-k8s-1
 echo ""
 echo "=== Deleting events ==="
 oc delete events --all -n payments
-oc delete events --all -n shared-services
 
 echo ""
 echo "=== Restarting demo pods ==="
 oc delete pods --all -n payments
-oc delete pods --all -n shared-services
 
 echo ""
 echo "Done. All Prometheus and demo pods are restarting."

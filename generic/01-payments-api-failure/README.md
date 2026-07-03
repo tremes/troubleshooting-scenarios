@@ -33,7 +33,7 @@ A deployment rollout updates the reporting service from v1.0.1 to v1.0.2, which 
 
 ## Components
 
-**Namespaces:** `shared-services` and `payments`
+**Namespaces:** `payments` and `payments`
 
 ```mermaid
 graph LR
@@ -41,7 +41,7 @@ graph LR
         payment[payments-api<br/>Port: 8080 + 8081 metrics]
     end
 
-    subgraph shared [shared-services namespace]
+    subgraph shared [payments namespace]
         postgres[(postgres<br/>max_connections: 20<br/>+ postgres-exporter sidecar :9187)]
         report[reporting-service<br/>Port: 8081 metrics<br/>🚨 Connection leak in v1.0.2]
         recon[reconciliation-service<br/>⚠️ Red herring]

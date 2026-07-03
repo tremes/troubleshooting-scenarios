@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: reporting-service
-  namespace: shared-services
+  namespace: payments
   labels:
     app: reporting-service
     app.kubernetes.io/part-of: payment-processor
@@ -47,7 +47,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: reporting-service
-  namespace: shared-services
+  namespace: payments
   labels:
     app: reporting-service
     app.kubernetes.io/part-of: payment-processor

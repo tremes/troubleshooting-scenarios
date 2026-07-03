@@ -3,7 +3,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: postgres
-  namespace: shared-services
+  namespace: payments
 spec:
   selector:
     matchLabels:
@@ -17,7 +17,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: reporting-service
-  namespace: shared-services
+  namespace: payments
 spec:
   selector:
     matchLabels:
@@ -30,15 +30,15 @@ spec:
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
-  name: shared-services-alerts
-  namespace: shared-services
+  name: payments-alerts
+  namespace: payments
 spec:
   groups:
-    - name: shared-services.workloads
+    - name: payments.workloads
       rules:
         - alert: SharedServicesPodCrashLooping
           expr: |
-            max_over_time(kube_pod_container_status_waiting_reason{namespace="shared-services", reason="CrashLoopBackOff"}[5m]) >= 1
+            max_over_time(kube_pod_container_status_waiting_reason{namespace="payments", reason="CrashLoopBackOff"}[5m]) >= 1
           for: 1m
           labels:
             severity: warning
@@ -48,8 +48,8 @@ spec:
               is in CrashLoopBackOff.
         - alert: SharedServicesDeploymentReplicasMismatch
           expr: |
-            kube_deployment_spec_replicas{namespace="shared-services"}
-            != kube_deployment_status_replicas_ready{namespace="shared-services"}
+            kube_deployment_spec_replicas{namespace="payments"}
+            != kube_deployment_status_replicas_ready{namespace="payments"}
           for: 2m
           labels:
             severity: warning
@@ -57,7 +57,7 @@ spec:
             summary: Deployment {{ $labels.deployment }} has replica mismatch
             description: Deployment {{ $labels.namespace }}/{{ $labels.deployment
               }} does not have the expected number of ready replicas.
-    - name: shared-services.database
+    - name: payments.database
       rules:
         - alert: PostgresqlConnectionsHigh
           expr: |

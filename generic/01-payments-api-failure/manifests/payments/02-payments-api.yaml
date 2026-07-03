@@ -38,7 +38,7 @@ spec:
                   name: payments-db
                   key: PGPASSWORD
             - name: PGHOST
-              value: postgres.shared-services.svc.cluster.local
+              value: postgres.payments.svc.cluster.local
             - name: PGPORT
               value: '5432'
             - name: PGDATABASE

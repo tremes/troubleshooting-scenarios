@@ -43,14 +43,13 @@ EOF
 
 echo ""
 echo "=== Cleaning up existing namespaces ==="
-oc delete namespace shared-services --ignore-not-found --wait
 oc delete namespace payments --ignore-not-found --wait
 
 echo ""
 echo "=== Deploying shared-services ==="
 oc apply -f "$MANIFESTS/shared-services/"
-oc -n shared-services wait --for=condition=available deployment/postgres --timeout=120s
-oc -n shared-services wait --for=condition=available deployment/reporting-service --timeout=120s
+oc -n payments wait --for=condition=available deployment/postgres --timeout=120s
+oc -n payments wait --for=condition=available deployment/reporting-service --timeout=120s
 
 echo ""
 echo "=== Deploying payments ==="
